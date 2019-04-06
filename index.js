@@ -255,8 +255,8 @@ const reset = () => {
   pause();
 
   // move needles back to initial state
-  rotate("seconds", 0);
   rotate("milli-seconds", 0);
+  rotate("seconds", 0);
   rotate("minutes", 0);
   rotate("hours", 0);
 

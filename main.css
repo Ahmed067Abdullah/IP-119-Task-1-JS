@@ -57,19 +57,16 @@ body {
 }
 
 .clock-container {
-  background-size: cover;
+  height: 400px;
+  width: 400px;
   margin: 0 0 50px;
   border: 5px solid #424874;
   background-color: white;
-  border-radius: 50%;
   position: relative;
   padding: 5px;
-  width: 400px;
-  height: 400px;
 }
 
 .clock-container .digit {
-  position: absolute;
   z-index: 100;
   margin: 0;
   padding: 0;
@@ -78,66 +75,70 @@ body {
 }
 
 .clock-container .twelve {
+  position: absolute;
   top: 0;
   left: 42%;
 }
 
 .clock-container .three {
-  right: 2%;
+  position: absolute;
   top: 41%;
+  right: 2%;
 }
 
 .clock-container .six {
+  position: absolute;
   bottom: 0;
   left: 46%;
 }
 
 .clock-container .nine {
-  left: 2%;
+  position: absolute;
   top: 41%;
+  left: 2%;
 }
 
 .clock-container #seconds {
-  background: #424874;
   height: 40%;
+  width: 0.5%;
+  background: #424874;
   left: 50%;
   position: absolute;
   top: 17.5%;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
-  width: 0.5%;
   z-index: 4;
 }
 
 .clock-container #minutes {
-  background: #424874;
-  height: 45%;
-  left: 49.7%;
   position: absolute;
   top: 13.3%;
+  left: 49.7%;
+  height: 45%;
+  width: 1.1%;
+  background: #424874;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
-  width: 1.1%;
   z-index: 3;
 }
 
 .clock-container #hours {
-  background: #424874;
-  height: 30%;
-  left: 49.5%;
   position: absolute;
   top: 25.5%;
+  left: 49.5%;
+  height: 30%;
+  width: 1.6%;
+  background: #424874;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
-  width: 1.6%;
   z-index: 2;
 }
 
 .clock-container #milli-seconds {
-  height: 25%;
-  left: 49.5%;
   position: absolute;
   top: 29.27%;
+  left: 49.5%;
+  height: 25%;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
   border: 0.5px dashed #424874;
@@ -145,37 +146,37 @@ body {
 }
 
 .clock-container .needles-center {
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  background: black;
   position: absolute;
   top: 47.5%;
   left: 48.5%;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: black;
   z-index: 6;
 }
 
 .clock-container .digital-time {
-  height: 5%;
-  left: 38%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: absolute;
-  border: 1px solid #424874;
   bottom: 27%;
+  left: 38%;
+  height: 5%;
+  width: 22%;
+  border: 1px solid #424874;
   color: #424874;
   font-size: 18px;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
   padding: 4px 3px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 22%;
 }
 
 .clock-controls {
@@ -183,12 +184,12 @@ body {
 }
 
 .clock-controls .btn {
+  height: 100px;
+  width: 100px;
   color: white;
   font-size: 18px;
   border-radius: 50%;
   outline: none;
-  width: 100px;
-  height: 100px;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
 }
@@ -248,8 +249,8 @@ body {
 }
 
 .laps-container {
-  width: 80%;
   height: 550px;
+  width: 80%;
   border-radius: 10px;
   -webkit-box-shadow: 4px 4px 0 0 #cac1f3;
           box-shadow: 4px 4px 0 0 #cac1f3;
@@ -274,12 +275,12 @@ body {
 }
 
 .laps-list {
+  height: 75%;
+  width: 60%;
   color: #424874;
   padding: 10px 5px;
   font-size: 20px;
-  width: 60%;
   margin-top: 10px;
-  height: 75%;
   text-align: center;
   overflow-y: scroll;
 }
@@ -291,16 +292,16 @@ body {
 }
 
 .laps-list-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   background-color: #cacfd6;
   padding: 10px 20px;
   border-radius: 20px;
   margin: 7px 0;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 @media (max-width: 1159px) {
