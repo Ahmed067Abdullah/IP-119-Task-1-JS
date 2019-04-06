@@ -3,11 +3,11 @@ html {
 }
 
 body {
+  height: 100%;
   background-color: #dcd6f7;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: sans-serif;
-  height: 100%;
 }
 
 .container {
@@ -99,14 +99,14 @@ body {
 }
 
 .clock-container #seconds {
-  height: 40%;
-  width: 0.5%;
-  background: #424874;
-  left: 50%;
   position: absolute;
   top: 17.5%;
+  left: 50%;
+  height: 40%;
+  width: 0.5%;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
+  background: #424874;
   z-index: 4;
 }
 
@@ -116,9 +116,9 @@ body {
   left: 49.7%;
   height: 45%;
   width: 1.1%;
-  background: #424874;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
+  background: #424874;
   z-index: 3;
 }
 
@@ -128,9 +128,9 @@ body {
   left: 49.5%;
   height: 30%;
   width: 1.6%;
-  background: #424874;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
+  background: #424874;
   z-index: 2;
 }
 
@@ -171,11 +171,11 @@ body {
   left: 38%;
   height: 5%;
   width: 22%;
-  border: 1px solid #424874;
-  color: #424874;
-  font-size: 18px;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
+  color: #424874;
+  border: 1px solid #424874;
+  font-size: 18px;
   padding: 4px 3px;
 }
 
@@ -186,9 +186,9 @@ body {
 .clock-controls .btn {
   height: 100px;
   width: 100px;
+  border-radius: 50%;
   color: white;
   font-size: 18px;
-  border-radius: 50%;
   outline: none;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
@@ -251,10 +251,6 @@ body {
 .laps-container {
   height: 550px;
   width: 80%;
-  border-radius: 10px;
-  -webkit-box-shadow: 4px 4px 0 0 #cac1f3;
-          box-shadow: 4px 4px 0 0 #cac1f3;
-  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -265,6 +261,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 0 0 #cac1f3;
+          box-shadow: 4px 4px 0 0 #cac1f3;
+  background-color: white;
 }
 
 .laps-container .laps-heading {

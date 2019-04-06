@@ -1,0 +1,38 @@
+@mixin button($color) {
+  background-color: $color;
+  &:hover {
+    background-color: darken($color: $color, $amount: 15);
+  }
+}
+
+@mixin flex($direction: null, $justify-content: null, $align-items: null) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin heightWidth($h: null, $w: null) {
+  height: $h;
+  width: $w;
+}
+
+@mixin needle($color: null, $bg-color: null, $z: null) {
+  transform-origin: 50% 80%;
+  color: $color;
+  background: $bg-color;
+  z-index: $z;
+}
+
+@mixin circle($h, $w) {
+  @include heightWidth($h, $w);
+  border-radius: 50%;
+}

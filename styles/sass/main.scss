@@ -1,60 +1,15 @@
-$bg-color: #dcd6f7;
-$fg-color: #424874;
-$text-color: #cacfd6;
-$start-color: #28a745;
-$pause-color: #ffc107;
-$laps-color: #007bff;
-$reset-color: #dc3545;
-$white: white;
-
-@mixin button($color) {
-  background-color: $color;
-  &:hover {
-    background-color: darken($color: $color, $amount: 15);
-  }
-}
-
-@mixin flex($direction: null, $justify-content: null, $align-items: null) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: $justify-content;
-  align-items: $align-items;
-}
-
-@mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
-  position: absolute;
-  top: $top;
-  right: $right;
-  bottom: $bottom;
-  left: $left;
-}
-
-@mixin heightWidth($h: null, $w: null) {
-  height: $h;
-  width: $w;
-}
-
-@mixin needle($color : null, $bg-color : null, $z) {
-  transform-origin: 50% 80%;
-  color : $color;
-  background: $bg-color;
-  z-index: $z;
-}
-
-@mixin circle($h, $m) {
-  border-radius: 50%;
-  @include heightWidth($h, $m);
-}
+@import "variables";
+@import "mixins";
 
 html {
   @include heightWidth($h: 100%);
 }
 
 body {
+  @include heightWidth($h: 100%);
   background-color: $bg-color;
   box-sizing: border-box;
   font-family: sans-serif;
-  @include heightWidth($h: 100%);
 }
 
 .container {
@@ -154,6 +109,7 @@ body {
     @include circle($h: 100px, $w: 100px);
     color: $white;
     font-size: 18px;
+    outline: none;
     transition: 0.3s ease-in;
     &:hover {
       cursor: pointer;
@@ -185,10 +141,10 @@ body {
 
 .laps-container {
   @include heightWidth($h: 550px, $w: 80%);
+  @include flex($direction: column, $align-items: center);
   border-radius: 10px;
   box-shadow: 4px 4px 0 0 darken($color: $bg-color, $amount: 5);
   background-color: $white;
-  @include flex($direction: column, $align-items: center);
   .laps-heading {
     font-size: 24px;
     font-weight: bold;
