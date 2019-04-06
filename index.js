@@ -1,20 +1,23 @@
 /* GLOBAL VARIABLES */
 
 // to keep of record of angles of diff needles
-let sAngle = 00;
-let mAngle = 00;
-let hAngle = 00;
-let msAngle = 00;
+let sAngle = 00,
+  mAngle = 00,
+  hAngle = 00,
+  msAngle = 00;
 
 // to keep of record of values of seconds, mins, hours
-let sVal = 0;
-let mVal = 0;
-let hVal = 0;
+let sVal = 0,
+  mVal = 0,
+  hVal = 0;
 
 let totalInterval = 60;
 
 // one tick of clock is 6 deg as => 360 / 60 = 6
 const oneTick = 6;
+
+// one tick of clock is 0.36 deg for ms as => 360 / 1000 = 0.36
+const oneTickForMS = 9;
 
 // to control setInterval callbacks
 let secInterval, minInterval, hourInterval, msInterval;
@@ -25,13 +28,10 @@ let minTimeOut, hourTimeOut;
 // to store details of laps
 let laps = [];
 
-let secToCompleteMin = 60;
-
 /* HELPER FUNCTIONS */
 
 // to set current values of time to the digital clock
 const setDigitalTime = () => {
-  console.log(hVal, mVal, sVal);
   const digitalTimeDiv = document.querySelector(".digital-time");
   digitalTimeDiv.innerHTML = transformTimeString(hVal, mVal, sVal);
 };
@@ -82,7 +82,7 @@ const renderLaps = () => {
   // set list to empty
   list.innerHTML = "";
 
-  // no laps message
+  // no laps message if no laps are there
   if (laps.length < 1) {
     list.innerHTML = "<p class='no-lap-msg'>No Laps Created</p>";
     return;
@@ -112,6 +112,7 @@ const saveStateToLocalStorage = running => {
       sVal,
       mVal,
       hVal,
+      msAngle,
       running
     })
   );
@@ -125,20 +126,22 @@ const restoreState = () => {
   if (state) {
     laps = state.laps;
     sVal = state.sVal;
-    mval = state.mVal;
+    mVal = state.mVal;
     hVal = state.hVal;
+    msAngle = state.msAngle;
 
     // calculating angles by multiplying values with displacement of one tick
     sAngle = sVal * oneTick;
-    mAngle = mval * oneTick;
+    mAngle = mVal * oneTick;
     hAngle = hVal * oneTick;
 
     // rotating needles w.r.t. to previous state
+    rotate("milli-seconds", msAngle);
     rotate("seconds", sAngle);
     rotate("minutes", mAngle);
     rotate("hours", hAngle);
 
-    // adjust clock state w.r.t. to previous state
+    // adjust digital clock state w.r.t. to previous state
     setDigitalTime();
 
     // continue prev state of the stop watch, i.e running OR paused
@@ -155,17 +158,17 @@ const start = () => {
   changeButton("Lap", "disabled", "laps", lap);
   changeButton("Pause", "start", "pause", pause);
 
-  // msInterval = setInterval(() => {
-  //   msAngle = msAngle + oneTick;
-  //   rotate("milli-seconds", msAngle);
-  // }, 1);
+  msInterval = setInterval(() => {
+    msAngle = msAngle + oneTickForMS;
+    rotate("milli-seconds", msAngle);
+  }, 25);
 
   // to move sec needle
   secInterval = setInterval(() => {
     // reset values on 60 sec
     if (sVal === 60) sAngle = sVal = 00;
 
-    // to rotate hour needle and increase counters
+    // to rotate sec needle and increase counters
     sAngle = sAngle + oneTick;
     sVal++;
     rotate("seconds", sAngle);
@@ -209,7 +212,7 @@ const pause = () => {
   clearInterval(secInterval);
   clearInterval(minInterval);
   clearInterval(hourInterval);
-  // clearInterval(msInterval);
+  clearInterval(msInterval);
   clearTimeout(minTimeOut);
   clearTimeout(hourTimeOut);
 
@@ -228,7 +231,6 @@ const lap = () => {
     minutes: mVal,
     hours: hVal
   });
-  console.log(laps);
   renderLaps();
 };
 
@@ -241,7 +243,7 @@ const remove = (i, length) => {
 // to reset clock state
 const reset = () => {
   // set counters to zero
-  sAngle = mAngle = hAngle = sVal = mval = hVal = 00;
+  sAngle = mAngle = hAngle = msAngle = sVal = mVal = hVal = 00;
 
   // empty out the laps array
   remove(0, laps.length);
@@ -254,12 +256,13 @@ const reset = () => {
 
   // move needles back to initial state
   rotate("seconds", 0);
+  rotate("milli-seconds", 0);
   rotate("minutes", 0);
   rotate("hours", 0);
 
-  // set digital clock to initial state
-  setDigitalTime();
-
   // clear local storage values
   localStorage.removeItem("stop-watch");
+
+  // set digital clock to initial state
+  setDigitalTime();
 };

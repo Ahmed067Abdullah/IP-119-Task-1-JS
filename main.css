@@ -1,8 +1,13 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color: #dcd6f7;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: sans-serif;
+  height: 100%;
 }
 
 .container {
@@ -15,6 +20,16 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 
 .clock-area {
@@ -33,9 +48,17 @@ body {
           flex: 2;
 }
 
+@media (max-width: 910px) {
+  .clock-area {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
+}
+
 .clock-container {
   background-size: cover;
-  margin: 100px 0 50px;
+  margin: 0 0 50px;
   border: 5px solid #424874;
   background-color: white;
   border-radius: 50%;
@@ -45,68 +68,104 @@ body {
   height: 400px;
 }
 
-.clock-container img {
-  width: 100%;
-  border-radius: 50%;
-  height: 100%;
+.clock-container .digit {
+  position: absolute;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  color: #424874;
+  font-size: 64px;
+}
+
+.clock-container .twelve {
+  top: 0;
+  left: 42%;
+}
+
+.clock-container .three {
+  right: 2%;
+  top: 41%;
+}
+
+.clock-container .six {
+  bottom: 0;
+  left: 46%;
+}
+
+.clock-container .nine {
+  left: 2%;
+  top: 41%;
 }
 
 .clock-container #seconds {
   background: #424874;
-  height: 45%;
-  left: 49.5%;
+  height: 40%;
+  left: 50%;
   position: absolute;
-  top: 14%;
+  top: 17.5%;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
-  width: 1%;
-  z-index: 8;
+  width: 0.5%;
+  z-index: 4;
 }
 
 .clock-container #minutes {
   background: #424874;
   height: 45%;
-  left: 49.5%;
+  left: 49.7%;
   position: absolute;
-  top: 14%;
+  top: 13.3%;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
-  width: 1.5%;
-  z-index: 10;
+  width: 1.1%;
+  z-index: 3;
 }
 
 .clock-container #hours {
   background: #424874;
-  height: 50%;
+  height: 30%;
   left: 49.5%;
   position: absolute;
-  top: 14%;
+  top: 25.5%;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
-  width: 1.5%;
-  z-index: 12;
+  width: 1.6%;
+  z-index: 2;
 }
 
 .clock-container #milli-seconds {
-  background: black;
-  height: 50%;
+  height: 25%;
   left: 49.5%;
   position: absolute;
-  top: 14%;
+  top: 29.27%;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
-  width: 1.5%;
-  z-index: 20;
+  border: 0.5px dashed #424874;
+  z-index: 5;
+}
+
+.clock-container .needles-center {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background: black;
+  position: absolute;
+  top: 47.5%;
+  left: 48.5%;
+  z-index: 6;
 }
 
 .clock-container .digital-time {
   height: 5%;
-  left: 40.5%;
+  left: 38%;
   position: absolute;
   border: 1px solid #424874;
   bottom: 27%;
+  color: #424874;
+  font-size: 18px;
   -webkit-transform-origin: 50% 80%;
           transform-origin: 50% 80%;
+  padding: 4px 3px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -117,7 +176,6 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   width: 22%;
-  z-index: 12;
 }
 
 .clock-controls {
@@ -190,8 +248,8 @@ body {
 }
 
 .laps-container {
-  width: 250px;
-  height: 400px;
+  width: 80%;
+  height: 550px;
   border-radius: 10px;
   -webkit-box-shadow: 4px 4px 0 0 #cac1f3;
           box-shadow: 4px 4px 0 0 #cac1f3;
@@ -219,9 +277,10 @@ body {
   color: #424874;
   padding: 10px 5px;
   font-size: 20px;
-  width: 182px;
+  width: 60%;
   margin-top: 10px;
   height: 75%;
+  text-align: center;
   overflow-y: scroll;
 }
 
@@ -236,11 +295,30 @@ body {
   padding: 10px 20px;
   border-radius: 20px;
   margin: 7px 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media (max-width: 1159px) {
+  .laps-list-item {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1017px) {
+  .laps-list-item {
+    font-size: 13px;
+  }
 }
 
 .laps-list .fa-times {
   display: inline-block;
   margin-left: 15px;
+  margin-right: 10px;
   color: #dc3545;
 }
 
