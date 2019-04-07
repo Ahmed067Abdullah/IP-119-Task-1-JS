@@ -163,23 +163,6 @@ const start = () => {
     rotate("milli-seconds", msAngle);
   }, 25);
 
-  // to move sec needle
-  secInterval = setInterval(() => {
-    // reset values on 60 sec
-    if (sVal === 60) sAngle = sVal = 00;
-
-    // to rotate sec needle and increase counters
-    sAngle = sAngle + oneTick;
-    sVal++;
-    rotate("seconds", sAngle);
-
-    // adjust digital time clock every second
-    setDigitalTime();
-
-    // save current state of the clock every second while clock is running  (with true flag)
-    saveStateToLocalStorage(true);
-  }, 1000);
-
   // to move min needle after 'totalInterval - sVal' seconds
   minTimeOut = setTimeout(() => {
     // reset values on 60 min
@@ -192,6 +175,24 @@ const start = () => {
       moveMinuteNeedle();
     }, 60000);
   }, (totalInterval - sVal) * 1000);
+
+  // to move sec needle
+  secInterval = setInterval(() => {
+    // to rotate sec needle and increase counters
+    sAngle = sAngle + oneTick;
+    sVal++;
+
+    // reset values on 60 sec
+    if (sVal === 60) sAngle = sVal = 00;
+
+    rotate("seconds", sAngle);
+
+    // adjust digital time clock every second
+    setDigitalTime();
+
+    // save current state of the clock every second while clock is running  (with true flag)
+    saveStateToLocalStorage(true);
+  }, 1000);
 
   // to move hour needle after 'totalInterval - mVal' minutes
   hourTimeOut = setTimeout(() => {
