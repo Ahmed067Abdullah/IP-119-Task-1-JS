@@ -11,6 +11,9 @@ let sVal = 0,
   mVal = 0,
   hVal = 0;
 
+// to keeps track of last lap
+let totalSecondsPassedAfterLastLap = 0;
+
 let totalInterval = 60;
 
 // one tick of clock is 6 deg as => 360 / 60 = 6
@@ -182,7 +185,7 @@ const start = () => {
     // to rotate sec needle and increase counters
     sAngle = sAngle + oneTick;
     sVal++;
-
+    totalSecondsPassedAfterLastLap++;
     // reset values on 60 sec
     if (sVal === 60) sAngle = sVal = 00;
 
@@ -226,15 +229,33 @@ const pause = () => {
   saveStateToLocalStorage(false);
 };
 
-// to push current clock state in the laps array
+// to push new lap in the laps array
 const lap = () => {
+  // hours => 1 = 3661 / 3600;
+  const hours = Math.floor(totalSecondsPassedAfterLastLap / 3600);
+
+  // remainder => 61 = 3661 % 3600;
+  let remainder = totalSecondsPassedAfterLastLap % 3600;
+
+  // minutes => 1 = 61 / 60;
+  const minutes = Math.floor(remainder / 60);
+
+  // seconds => 1 = 61 % 60;
+  const seconds = remainder % 60;
+
+  // reset total seconds passed after last lap to 0;
+  totalSecondsPassedAfterLastLap = 0;
+
+  // pushing values to array;
   laps.push({
-    seconds: sVal,
-    minutes: mVal,
-    hours: hVal
+    seconds,
+    minutes,
+    hours
   });
   renderLaps();
 };
+
+61;
 
 // to remove specified lap(s) from the laps array
 const remove = (i, length) => {
@@ -246,7 +267,8 @@ const remove = (i, length) => {
 const reset = () => {
   // set counters to zero
   sAngle = mAngle = hAngle = msAngle = sVal = mVal = hVal = 00;
-
+  totalSecondsPassedAfterLastLap = 0;
+  
   // empty out the laps array
   remove(0, laps.length);
 
