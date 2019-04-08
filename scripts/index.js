@@ -14,8 +14,6 @@ let sVal = 0,
 // to keeps track of last lap
 let totalSecondsPassedAfterLastLap = 0;
 
-let totalInterval = 60;
-
 // one tick of clock is 6 deg as => 360 / 60 = 6
 const oneTick = 6;
 
@@ -61,6 +59,13 @@ const rotate = (needle, angle) => {
 const moveMinuteNeedle = () => {
   mAngle = mAngle + oneTick;
   mVal++;
+
+  // reset values on 60 min and rotate hour needle
+  if (mVal === 60) {
+    moveHourNeedle();
+    mAngle = mVal = 00;
+  }
+
   rotate("minutes", mAngle);
 };
 
@@ -68,6 +73,12 @@ const moveMinuteNeedle = () => {
 const moveHourNeedle = () => {
   hAngle = hAngle + oneTick;
   hVal++;
+
+  // reset values on 60 hours
+  if (hVal === 60) {
+    hAngle = hVal = 00;
+  }
+
   rotate("hours", hAngle);
 };
 
@@ -116,6 +127,7 @@ const saveStateToLocalStorage = running => {
       mVal,
       hVal,
       msAngle,
+      totalSecondsPassedAfterLastLap,
       running
     })
   );
@@ -132,6 +144,7 @@ const restoreState = () => {
     mVal = state.mVal;
     hVal = state.hVal;
     msAngle = state.msAngle;
+    totalSecondsPassedAfterLastLap = state.totalSecondsPassedAfterLastLap;
 
     // calculating angles by multiplying values with displacement of one tick
     sAngle = sVal * oneTick;
@@ -161,34 +174,27 @@ const start = () => {
   changeButton("Lap", "disabled", "laps", lap);
   changeButton("Pause", "start", "pause", pause);
 
+  // for mili second needle
   msInterval = setInterval(() => {
     msAngle = msAngle + oneTickForMS;
     if (msAngle === 360) msAngle = 00;
     rotate("milli-seconds", msAngle);
   }, 12.5);
 
-  // to move min needle after 'totalInterval - sVal' seconds
-  minTimeOut = setTimeout(() => {
-    // reset values on 60 min
-    if (mVal === 60) mAngle = mVal = 00;
-
-    moveMinuteNeedle();
-
-    // rotate min needle after every 60 sec
-    minInterval = setInterval(() => {
-      moveMinuteNeedle();
-    }, 60000);
-  }, (totalInterval - sVal) * 1000);
-
-  // to move sec needle
+  // for sec needle
   secInterval = setInterval(() => {
-    // to rotate sec needle and increase counters
+    // increase counters
     sAngle = sAngle + oneTick;
     sVal++;
     totalSecondsPassedAfterLastLap++;
-    // reset values on 60 sec
-    if (sVal === 60) sAngle = sVal = 00;
 
+    // reset values on 60 sec and move min needle
+    if (sVal === 60) {
+      moveMinuteNeedle();
+      sAngle = sVal = 00;
+    }
+
+    // rotate sec needle
     rotate("seconds", sAngle);
 
     // adjust digital time clock every second
@@ -197,19 +203,6 @@ const start = () => {
     // save current state of the clock every second while clock is running  (with true flag)
     saveStateToLocalStorage(true);
   }, 1000);
-
-  // to move hour needle after 'totalInterval - mVal' minutes
-  hourTimeOut = setTimeout(() => {
-    // reset values on 99 hours
-    if (hVal === 99) hAngle = hVal = 00;
-
-    moveHourNeedle();
-
-    // rotate hour needle after every 3600000 sec (60 min)
-    hourInterval = setInterval(() => {
-      moveHourNeedle();
-    }, 3600000);
-  }, (totalInterval - mVal) * 60 * 1000);
 };
 
 const pause = () => {
@@ -268,7 +261,7 @@ const reset = () => {
   // set counters to zero
   sAngle = mAngle = hAngle = msAngle = sVal = mVal = hVal = 00;
   totalSecondsPassedAfterLastLap = 0;
-  
+
   // empty out the laps array
   remove(0, laps.length);
 
