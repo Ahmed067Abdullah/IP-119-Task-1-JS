@@ -17,7 +17,7 @@ let totalInterval = 60;
 const oneTick = 6;
 
 // one tick of clock is 0.36 deg for ms as => 360 / 1000 = 0.36
-const oneTickForMS = 9;
+const oneTickForMS = 4.5;
 
 // to control setInterval callbacks
 let secInterval, minInterval, hourInterval, msInterval;
@@ -160,8 +160,9 @@ const start = () => {
 
   msInterval = setInterval(() => {
     msAngle = msAngle + oneTickForMS;
+    if (msAngle === 360) msAngle = 00;
     rotate("milli-seconds", msAngle);
-  }, 25);
+  }, 12.5);
 
   // to move min needle after 'totalInterval - sVal' seconds
   minTimeOut = setTimeout(() => {
