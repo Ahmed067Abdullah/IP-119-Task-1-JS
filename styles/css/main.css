@@ -53,6 +53,7 @@ body {
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
+    margin-right: 20px;
   }
 }
 
@@ -248,6 +249,13 @@ body {
           flex: 1;
 }
 
+@media (max-width: 768px) {
+  .laps-area {
+    margin-top: 50px;
+    width: 300px;
+  }
+}
+
 .laps-container {
   height: 550px;
   width: 80%;
@@ -265,6 +273,12 @@ body {
   -webkit-box-shadow: 4px 4px 0 0 #cac1f3;
           box-shadow: 4px 4px 0 0 #cac1f3;
   background-color: white;
+}
+
+@media (max-width: 768px) {
+  .laps-container {
+    width: 100%;
+  }
 }
 
 .laps-container .laps-heading {

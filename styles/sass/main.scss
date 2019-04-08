@@ -25,6 +25,7 @@ body {
   flex: 2;
   @media (max-width: 910px) {
     flex: 1;
+    margin-right : 20px;
   }
 }
 
@@ -137,6 +138,10 @@ body {
 
 .laps-area {
   flex: 1;
+  @media(max-width: 768px){
+    margin-top : 50px;
+    width : 300px;
+  }
 }
 
 .laps-container {
@@ -145,6 +150,9 @@ body {
   border-radius: 10px;
   box-shadow: 4px 4px 0 0 darken($color: $bg-color, $amount: 5);
   background-color: $white;
+  @media(max-width: 768px){
+    width : 100%;
+  }
   .laps-heading {
     font-size: 24px;
     font-weight: bold;
