@@ -18,13 +18,11 @@ let totalSecondsPassedAfterLastLap = 0;
 const oneTick = 6;
 
 // one tick of clock is 0.36 deg for ms as => 360 / 1000 = 0.36
+// here considering 12.5 ticks at once since difference is very small, so 0.36 * 12.5 = 4.5
 const oneTickForMS = 4.5;
 
 // to control setInterval callbacks
-let secInterval, minInterval, hourInterval, msInterval;
-
-// to control setTimeout callbacks
-let minTimeOut, hourTimeOut;
+let secInterval, msInterval;
 
 // to store details of laps
 let laps = [];
@@ -208,11 +206,7 @@ const start = () => {
 const pause = () => {
   // stop all the async activities
   clearInterval(secInterval);
-  clearInterval(minInterval);
-  clearInterval(hourInterval);
   clearInterval(msInterval);
-  clearTimeout(minTimeOut);
-  clearTimeout(hourTimeOut);
 
   // to change buttons' text, class and event handlers
   changeButton("Start", "pause", "start", start);
@@ -247,8 +241,6 @@ const lap = () => {
   });
   renderLaps();
 };
-
-61;
 
 // to remove specified lap(s) from the laps array
 const remove = (i, length) => {
